@@ -20,8 +20,8 @@ function calcularImpostoFaixa(salario, faixaInferior, faixaSuperior, aliquota) {
   if (salario <= faixaInferior) {
     return 0; // Se o salário está abaixo da faixa, não há imposto
   }
-const baseImponivel = Math.min(salario, faixaSuperior) - faixaInferior;
-return baseImponivel * aliquota + 77.82;
+const Valor = Math.min(salario, faixaSuperior) - faixaInferior;
+return Valor * aliquota + 77.82;
 }
 
 function calcularImpostoDevido(salario) {
@@ -31,19 +31,17 @@ function calcularImpostoDevido(salario) {
     // Isento
     return 0;
   }
-  if (salario > 2259.21  && salario <= 2826.65) {
+  else if (salario > 2259.21  && salario <= 2826.65) {
     // 7,5%
     impostoDevido += calcularImpostoFaixa(salario, 2259.21 , 2826.65, 0.075);
-  }
-  if (salario > 2826.66 && salario <= 3751.05) {
+  } else if (salario > 2826.66 && salario <= 3751.05) {
     // 15%
     impostoDevido += calcularImpostoFaixa(salario, 2826, 3751.05, 0.15);
-  }
-  if (salario > 3751.06 && salario <= 4664.68) {
+  } else if (salario > 3751.06 && salario <= 4664.68) {
     // 22,5%
     impostoDevido += calcularImpostoFaixa(salario, 3751.65, 4664.68, 0.225);
   }
-  if (salario > 4664.68) {
+  else {(salario > 4664.68) 
     // 27,5%
     impostoDevido += calcularImpostoFaixa(salario, 4664.68, Infinity, 0.275);
   }
