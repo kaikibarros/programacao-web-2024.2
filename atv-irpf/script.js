@@ -1,68 +1,109 @@
+
 /*
   A implementação em JS deve possuir pelo menos as seguintes funções:
 
-Função para calcular porcentagem da alíquota, com dois parâmetros de entrada (salário e IR) e um retorno (a porcentagem efetiva de alíquota); FEITO
-
+Função para calcular porcentagem da alíquota, com dois parâmetros de entrada (salário e IR) e um retorno (a porcentagem efetiva de alíquota); 
 Função para cálculo do imposto devido, que recebe como entrada o salário e retorna o salario devido. Esta função deve chamar uma função para cada faixa da alíquota, dividindo a tarefa do cálculo em várias partes.
 
 
-Imposto = base de cálculo x (alíquota/100)
+imposto * 100 / (salario + deducao)
+
+
 2,39
-*/
-function calcularAliquota(salario, impostoDevido) {
-  if (salario == 0) {
-    return 0;
-  }
-  return ((impostoDevido / salario) * 100)  ; // Retorna a alíquota em %
+// */
+function calcularAliquota(salario, IR) {
+  let porcentagem = (IR / salario) * 100;
+  return porcentagem
 }
 
-function calcularImpostoFaixa(salario, faixaInferior, faixaSuperior, aliquota) {
-  if (salario <= faixaInferior) {
-    return 0; // Se o salário está abaixo da faixa, não há imposto
-  }
-const Valor = Math.min(salario, faixaSuperior) - faixaInferior;
-return Valor * aliquota + 77.82;
+
+function calcularFaixa(baseCalculo , faixaInferior, faixaSuperior, aliquota) {
+  const valorFaixa = Math.floor((baseCalculo), faixaSuperior) - faixaInferior;
+  return valorFaixa * aliquota;
 }
 
 function calcularImpostoDevido(salario) {
   let impostoDevido = 0;
+  let baseCalculo = salario - 563.80
 
-  if (salario < 2259.20) {
-    // Isento
-    return 0;
-  }
-  else if (salario > 2259.21  && salario <= 2826.65) {
-    // 7,5%
-    impostoDevido += calcularImpostoFaixa(salario, 2259.21 , 2826.65, 0.075);
-  } else if (salario > 2826.66 && salario <= 3751.05) {
-    // 15%
-    impostoDevido += calcularImpostoFaixa(salario, 2826, 3751.05, 0.15);
+  if (salario <= 2259.20) {
+    // Faixa 1 - Isento
+    impostoDevido = 0;
+
+  } else if (salario > 2259.20 && salario <= 2826.65) {
+    // Faixa 2 - 7,5%
+    const faixa2 = calcularFaixa(baseCalculo, 2259.20, 2826.65, 0.075);
+    impostoDevido += faixa2;
+
+  } else if (salario > 2826.65 && salario <= 3751.05) {
+    // Faixa 3 - 15%
+    const faixa2 = calcularFaixa(2826.65, 2259.20, 2826.65, 0.075);
+    const faixa3 = calcularFaixa(baseCalculo, 2826.65, 3751.05, 0.15);
+    impostoDevido += faixa2 + faixa3;
+
   } else if (salario > 3751.06 && salario <= 4664.68) {
-    // 22,5%
-    impostoDevido += calcularImpostoFaixa(salario, 3751.65, 4664.68, 0.225);
+    // Faixa 4 - 22,5%
+    const faixa2 = calcularFaixa(2826.65, 2259.20, 2826.65, 0.075);
+    const faixa3 = calcularFaixa(3751.05, 2826.65, 3751.05, 0.15);
+    const faixa4 = calcularFaixa(baseCalculo, 3751.05, 4664.68, 0.225);
+    impostoDevido += faixa2 + faixa3 + faixa4 +23.56;
+
+  } else if (salario > 4664.68) {
+    // Faixa 5 - 27,5%
+    const faixa2 = calcularFaixa(2826.65, 2259.20, 2826.65, 0.075);
+    const faixa3 = calcularFaixa(3751.05, 2826.65, 3751.05, 0.15);
+    const faixa4 = calcularFaixa(4664.68, 3751.05, 4664.68, 0.225);
+    const faixa5 = calcularFaixa(baseCalculo, 4664.68, Infinity, 0.275);
+    impostoDevido += faixa2 + faixa3 + faixa4 + faixa5;
   }
-  else {(salario > 4664.68) 
-    // 27,5%
-    impostoDevido += calcularImpostoFaixa(salario, 4664.68, Infinity, 0.275);
-  }
+
   return impostoDevido;
 }
 
+
 // Evento de clique no botão
-document.getElementById("calcular").addEventListener('click', function() { 
+document.getElementById("calcular").addEventListener('click', function() {
   const salario = parseFloat(document.getElementById('salario').value);
   
   if (!salario || salario < 0) {
-    alert('Por favor, insira um salário válido.');
+    alert('Insira um salário válido.');
     return;
   }
 
   // aparecer na tela
-  const impostoDevido = calcularImpostoDevido(salario);
-  const aliquotaEfetiva = calcularAliquota(salario, impostoDevido);
+  const IR = calcularImpostoDevido(salario);
+  const aliquotaEfetiva = calcularAliquota(salario, IR);
 
   document.getElementById('resultado').innerHTML = `
-    <p>Valor de IRPF a ser recolhido: R$ ${impostoDevido.toFixed(2)}</p>
-    <p>Alíquota efetiva: ${aliquotaEfetiva.toFixed(2)}%</p>
-  `;
+    <p>Valor de IRPF a ser recolhido: R$ ${IR.toFixed(2)}</p>
+    <p>Alíquota efetiva: ${aliquotaEfetiva.toFixed(2)}%</p>`;
 });
+
+/*
+function calcularFaixa(salario, aliquota) {
+  if (salario <= 0) {
+    return 0; // Se o salário está abaixo da faixa, não há imposto
+  }
+  let valor = salario - deducao;
+  return Math.floor(valor * aliquota);
+}
+  if (salario < 2259.20) {
+    // Isento
+    return 0;
+  } else if (salario >= 2259.21 && salario <= 2826.65) {
+    // 7,5%
+    salarioDevido += calcularFaixa(salario, 0.075, 564.80);
+  } else if (salario >= 2826.66 && salario <= 3751.05) {
+    // 15%
+    salarioDevido += calcularFaixa(salario, 0.15, 564.80);
+  } else if (salario >= 3751.06 && salario <= 4664.68) {
+    // 22,5%
+    salarioDevido += calcularFaixa(salario, 0.225, 564.80);
+  } else if (salario > 4664.68) {
+    // 27,5%
+    salarioDevido += calcularFaixa(salario, 0.275, 564.80);
+  }
+
+  return salarioDevido;
+
+*/
