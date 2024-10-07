@@ -1,21 +1,14 @@
 
 /*
   A implementação em JS deve possuir pelo menos as seguintes funções:
-
 Função para calcular porcentagem da alíquota, com dois parâmetros de entrada (salário e IR) e um retorno (a porcentagem efetiva de alíquota); 
 Função para cálculo do imposto devido, que recebe como entrada o salário e retorna o salario devido. Esta função deve chamar uma função para cada faixa da alíquota, dividindo a tarefa do cálculo em várias partes.
+ */
 
-
-imposto * 100 / (salario + deducao)
-
-
-2,39
-// */
 function calcularAliquota(salario, IR) {
   let porcentagem = (IR / salario) * 100;
   return porcentagem
 }
-
 
 function calcularFaixa(baseCalculo , faixaInferior, faixaSuperior, aliquota) {
   const valorFaixa = Math.floor((baseCalculo), faixaSuperior) - faixaInferior;
@@ -60,7 +53,6 @@ function calcularImpostoDevido(salario) {
   return impostoDevido;
 }
 
-
 // Evento de clique no botão
 document.getElementById("calcular").addEventListener('click', function() {
   const salario = parseFloat(document.getElementById('salario').value);
@@ -78,32 +70,3 @@ document.getElementById("calcular").addEventListener('click', function() {
     <p>Valor de IRPF a ser recolhido: R$ ${IR.toFixed(2)}</p>
     <p>Alíquota efetiva: ${aliquotaEfetiva.toFixed(2)}%</p>`;
 });
-
-/*
-function calcularFaixa(salario, aliquota) {
-  if (salario <= 0) {
-    return 0; // Se o salário está abaixo da faixa, não há imposto
-  }
-  let valor = salario - deducao;
-  return Math.floor(valor * aliquota);
-}
-  if (salario < 2259.20) {
-    // Isento
-    return 0;
-  } else if (salario >= 2259.21 && salario <= 2826.65) {
-    // 7,5%
-    salarioDevido += calcularFaixa(salario, 0.075, 564.80);
-  } else if (salario >= 2826.66 && salario <= 3751.05) {
-    // 15%
-    salarioDevido += calcularFaixa(salario, 0.15, 564.80);
-  } else if (salario >= 3751.06 && salario <= 4664.68) {
-    // 22,5%
-    salarioDevido += calcularFaixa(salario, 0.225, 564.80);
-  } else if (salario > 4664.68) {
-    // 27,5%
-    salarioDevido += calcularFaixa(salario, 0.275, 564.80);
-  }
-
-  return salarioDevido;
-
-*/
