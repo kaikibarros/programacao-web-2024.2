@@ -17,7 +17,7 @@ function calcularFaixa(baseCalculo , faixaInferior, faixaSuperior, aliquota) {
 
 function calcularImpostoDevido(salario) {
   let impostoDevido = 0;
-  let baseCalculo = salario - 563.80
+  let baseCalculo = salario - 564.80
 
   if (salario <= 2259.20) {
     // Faixa 1 - Isento
@@ -39,7 +39,7 @@ function calcularImpostoDevido(salario) {
     const faixa2 = calcularFaixa(2826.65, 2259.20, 2826.65, 0.075);
     const faixa3 = calcularFaixa(3751.05, 2826.65, 3751.05, 0.15);
     const faixa4 = calcularFaixa(baseCalculo, 3751.05, 4664.68, 0.225);
-    impostoDevido += faixa2 + faixa3 + faixa4 +23.56;
+    impostoDevido += faixa2 + faixa3 + faixa4 +23.79;
 
   } else if (salario > 4664.68) {
     // Faixa 5 - 27,5%
