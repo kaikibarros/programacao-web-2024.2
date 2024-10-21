@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+
+        <label for="endereco">endereço:</label><br>
+        <input type="text" id="endereco" name="endereco"> <br>
+
+        <label for="fone">Telefone:</label><br>
+        <input type="text" id="fone" name="fone"><br>
+
+        <label for="email">email:</label><br>
+        <input type="text" id="email" name="email"> <br>
+
+        <button type="button" id="gravar"> Gravar </button>
+        <button type="button" id="exibir"> Exibir </button>
+    </form>
+
+    <div id='output'>
+        <br>
+    </div>
+<!--  -->
+    <script src="/A04/script.js"></script>
+</body>
+
+</html>
+
+
+<!-- Criar um formulário usando html e JS.
+Adicionar 4 campos ao seu form: Nome, Endereço, email, telefone.
+Adicionar um botão gravar, que, ao ser pressionado, armazena os dados usando localstorage. Os dados devem estar armazenados em chaves diferentes (um para cada campo).
+Adicionar um botão exibir, que, ao ser pressionado, recupera os dados armazenados no localstorage e os exibe na mesma página, abaixo do formulário. -->
