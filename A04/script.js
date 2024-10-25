@@ -30,6 +30,26 @@ function gravar() {
     outputDiv.textContent = 'Nenhum dado encontrado.'; 
     };
 })};
+
+function enviar () {
+    document.getElementById("enviar").addEventListener('click', function(){
+        
+         const fone = document.getElementById('fone').value;
+         const mensagem = document.getElementById('mensagem').value;
+        
+        var api = `https://api.whatsapp.com/send?phone=${fone}&text=${mensagem}`;
+        
+        window.open(api, "_self")
+    })
+} 
+
 gravar();
 exibir();
+enviar();
 
+
+// Concatene os 4 campos do seu form (Nome, Endereço, email, telefone) em uma string.
+// Adicione um campo para digitar um número de telefone.
+// Adicionar um botão enviar, que, ao ser pressionado, chama a API do whatsapp para envio de mensagem. 
+// O formato da chamada é (campos que devem ser substituídos em negrito):
+// https://api.whatsapp.com/send?phone=telefone&text=texto
